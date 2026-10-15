@@ -1,0 +1,46 @@
+PRESTAMOS 
+
+* Realizar un prestamo a usuarios - CONDICIONES (if)
+    . Validar si alcanzo el numero maximo de prestamos (Definir cuantos libros puede adquirir al mismo tiempo)
+    . Validar si cuenta con adeudos o no (No pueden realizarse prestamos si se deben libros)
+    . Validar si tiene un tag RFID que lo identifique
+    . Validar el estado del libro que se solicita (activo / inactivo). No se pueden prestar libros que no haya en stock, que se hayan dado de baja, que esten dañados etc.
+    . Validar que el usuario este inscrito en el tecnologico, no este dado de baja o suspendido.
+
+
+* Datos de prestamo
+    . Fecha y hora 
+    . Nombre 
+    . Carrera
+    . Numero de cuenta 
+    . Clave tag RFID
+    . Definir por cuanto tiempo se realizara el prestamo
+
+* Flujo de actividad. Inicio - Fin 
+    . Recepción de datos del préstamo (id del usuario/ tag rfid de usuario ... id del libro / tag RFID de libro)
+    . Validar si el usuario tiene un tag RFID activo y válido que lo identifique.
+    . Validar que el usuario este inscrito en el tecnologico, no este dado de baja o suspendido.
+    . Validar si el alumno cuenta con adeudos o sanciones. (Adeudos libros, sanciones por devoluciones fuera de tiempo, daño o descuido fisico de libros, etc)
+    . Validar si alcanzo el numero maximo de prestamos (Definir cuantos libros puede adquirir al mismo tiempo, por ejemplo 4)
+    . Validar que el libro esté disponible para préstamo (estado activo y stock disponible).
+    . Registrar fecha y hora de inicio del préstamo.
+    . Definir por cuánto tiempo se realizará el préstamo (Calcular la fecha - hora límite de devolución).
+    . Guardar la transacción del préstamo asociada al usuario (Nombre, Carrera, Número de cuenta, Clave tag RFID) y al libro.
+    . Cambiar estado del libro a PRESTADO y hacer el cambio correspondiente en stock (let = numero de libros disponibles)
+    . Notificar con un mensjae de éxito con los datos del préstamo realizado.
+
+DEVOLUCIONES
+
+* Flujo de actividades 
+    . Recepción de datos (tag_RFID_usuario, tag_RFID_libro, id_prestamo)
+    . Consultar usuario por tag RFID (id_Usuario)
+    . Validar si el usuario cuenta con un tag (ID) para identificarse
+    . Consultar prestamos (Estado : activo / inactivo)
+    . Validar si existe y esta vigente el prestamo (en caso contrario arroga codigo de estado respectivo)
+    . Registrar fecha y hora de devolucion, ademas de hacer el calculo total del tiempo que estuvo el libro fuera de las instalaciones.
+    . Validar la fecha de devolucion (¿Se entrego a tiempo el libro prestado o no? dependiendo la condicion aplicar restricciones o sanciones)
+    . Validar si el libro se entregÓ con algun tipo de daño fisico o descuido, etc (De igual manera aplicar una multa, sancion o restriccion al usuario)
+    . Realizar cambios en la base de datos. 
+    . Actualizar estado del prestamo (Devuelto)
+    . Actualizar stock (libro + 1)
+    . Actualizar las restricciones - sanciones - multas en caso de que surguiera algun tipo de conflicto con el tiempo de entrega o con el daÑo del material.

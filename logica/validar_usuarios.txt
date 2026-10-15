@@ -1,0 +1,38 @@
+USUARIOS Y CONTROL DE ACCESO (BITÁCORA)
+
+* Tipos de Usuario / Roles
+    . Alumno (Credencial escolar, Tag RFID,  Número de cuenta)
+    . Docente - Personal (Credencial, Tag RFID, número de empleado)
+    . Visitante externo (Registro manual en bitácora ó tag temporal)
+
+* Ingreso a las instalaciones - VALIDACIONES (if)
+    . Ingresar solo si cuenta con una clave tag RFID
+    . Identificar el tipo de usuario (Alumno, docente, visitante externo).
+    . Validar si es alumno del TEC (inscrito, suspendido, dado de baja) en caso de usuario ALUMNO
+    . Validar si es servidor del TEC. Estado activo en caso de usuario DOCENTE o ADMINISTRATIVO
+    . Si está suspendido o dado de baja, denegar acceso o justificar el porque con la adminisradora o encargada de la biblioteca.
+    . Si no tiene una entrada activa ... registrarla
+    . Si ya tiene una entrada activa ... registrar salida con su respectivo calculo de tiempo dentro de las instalaciones.
+
+* Datos de usuario (Bitácora digital)
+    . Clave tag RFID (id)
+    . Nombre 
+    . Tipo de usuario 
+    . Carrera 
+    . Asunto por el que entrará a las instalaciones
+    . Fecha
+    . Hora de entrada
+    . Hora de salida
+    . Tiempo de estancia (calculo a realizar al registrar salida)
+
+* Captura de errores y excepciones(try - catch)
+    . try...
+        - Lectura del Tag RFID.
+        - Búsqueda en b.d.
+        - Validación del estado del usuario(suspendido, no inscrito en el Tecnologico, dado de baja, etc)
+        - Registro de accion a realizar (entrada ó salida)
+        - Notificar acceso concedido con datos del usuario. enviar sms
+    . catch...
+        - Tag RFID no reconocido o tag no registrada.
+        - Usuario inactivo, suspendido, dado de baja, etc. (NOTA: la logica es = realizar con una condicion IF dentro del TRY)
+        - Fallo al realizar una consulta en la b.d en tiempo real o captura de datos corruptos. (datos a medio proceso y que haya fallado el servidor o la b.d)

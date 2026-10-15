@@ -1,0 +1,36 @@
+LIBROS 
+
+* Registrar un libro en la base de datos
+    . Ingreso de datos en los campos correspondientes obligatorios (front) - JSON.
+    . Validar si se ingresaron correctamente todos los campos, por ejemplo si faltó llenar un campo de la interfaz pausar la ejecucion y enviar los errores correspondientes.
+    . Validar espacios en blanco extra.
+    . Validar el ingreso del tipo de dato a las cajas de texto (texto o numeros).
+    . Validar si su tag RFID id es unico. (no se pueden resgistar nuevos libros con el mismo tag - duplicados).
+    . Validar si el libro ya existe en la base de datos, sino es asi ... proceder.
+    . Si pasa todas las pruebas ... guardarlo con el tipo de estado correspondiente (activo / inactivo )ademas de los ejemplares disponibles en stock (10 ejemplares).
+    . Enviar un mensaje de exito con los datos del nuevo libro.
+
+
+* Eliminar un libro de la b.d - DELETE / ESTADO
+    . NOTA: no se eliminará el registro de la b.d, se cambiará el estado del libro a inactivo.
+    . Buscarlo mediante su id
+    . Validar si se encuentra en prestamo, en caso contrario no se podra cambiar de estado a inactivo. (no se pude eliminar un libro que esta fuera de las instalaciones)
+    . Enviar un mensaje con todos los datos de libro (nombre, autor, editorial, id, etc) para su confirmación.
+    . Cambiar de estado activo a inactivo para que ya no se muestren ejemaples en prestamos si es que se requiere su adquisicion por usuarios.
+    
+
+* Modificar un libro.
+    . Buscarlo atraves de su id.
+    . Validar los campos, si se ingresaron todos los datos, de no ser asi capturar el error y notificarlo al administrador.
+    . Validar que el administrador ingrese los tipos de datos correctos en las cajas correspondientes (string, int).
+    . Validar que su clavae tag-RFID sea unico, irrepetible y valido. === (Registro en Base de Datos)
+    . Validar si el libro se encuentra en prestamo (estado : inactivo). No se puede modificar el tag RFID.
+    . Notificar al admin con un mensaje de accion realizada con los nuevos datos del libro.
+
+
+* Buscar un libro.
+    . Realizar la busqueda atraves del id.
+    . Realizar una busqueda por filtrado (Titulo, Autor, Editorial, etc).
+    . Mostrar ejemplares de filtro atraves de paginas consecutivas (pag 1, pag 2, pag 3).
+    . Validar las busqueda, en caso de que no se arrojen ejemplares mostrar los codigos de estado correspodientes (200, 400).
+    . Enviar el libro correspondientes con sus datos (id, nombre, autor, editorial, etc).

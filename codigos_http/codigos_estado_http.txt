@@ -1,0 +1,67 @@
+CODIGOS DE ESTADO - HTTP
+
+2.. EXITOSO 
+
+    200 OK
+    . Qué significa: La petición fue procesada con éxito y se devuelve una respuesta.
+    . Dónde usarlo en el Backend:
+        - Búsqueda de un libro por ID o filtrado exitoso.
+        - Registro de entrada o salida en la Bitácora RFID concedido.
+        - Devolución exitosa de un libro.
+        - Modificación exitosa de los datos de un libro.
+
+    201 Created
+    . Qué significa: La petición tuvo éxito y como resultado se CREÓ un nuevo recurso en la BD.
+    . Dónde usarlo en el Backend:
+        - Registro de un libro nuevo en el catálogo.
+        - Creación de un nuevo registro de préstamo de un libro a un alumno.
+        - Registro inicial de un usuario o visitante en el sistema.
+
+
+4.. ERRORES DEL USUARIO
+
+    400 Bad Request
+    . Qué significa: La petición enviada contiene datos inválidos, incompletos o mal formateados.
+    . Dónde usarlo en el Backend:
+        - Falta un campo obligatorio en el JSON (ej. no enviaron el título del libro).
+        - Mapeo de datos incorrecto (enviaron letras en un campo numérico como la cantidad de stock).
+        - Intento de préstamo cuando el usuario ya superó su límite de libros permitidos (ej. ya tiene 4).
+        - Intento de borrar o editar el RFID de un libro que actualmente está en préstamo.
+
+    401 Unauthorized
+    . Qué significa: Falta autenticación. El cliente no ha iniciado sesión o no envió un Token (JWT) válido.
+    . Dónde usarlo en el Backend:
+        - Intentar acceder a rutas administrativas del Backend sin un token de sesión activo.
+
+    403 Forbidden
+    . Qué significa: El cliente está autenticado pero NO tiene permisos o el acceso está denegado por regla de negocio.
+    . Dónde usarlo en el Backend:
+        - Alumno o docente intenta ingresar por la puerta RFID pero su estatus es "SUSPENDIDO" o "DADO DE BAJA".
+        - Un usuario con rol "Alumno" intenta eliminar un libro del sistema.
+
+    404 Not Found
+    . Qué significa: El recurso solicitado no existe en la base de datos.
+    . Dónde usarlo en el Backend:
+        - Se busca o intenta editar un libro con un ID que no está en la BD.
+        - Se escanea un Tag RFID que no pertenece a ningún libro ni usuario registrado.
+        - La ruta solicitada en la URL de la API no existe.
+
+    409 Conflict
+    . Qué significa: La petición entra en conflicto con el estado actual de la base de datos (Duplicados).
+    . Dónde usarlo en el Backend:
+        - Intentar registrar un libro con un Tag RFID o ISBN que ya está asignado a otro ejemplar.
+        - Intentar registrar un alumno con un número de cuenta o Tag RFID que ya existe.
+
+
+5.. ERRORES DEL SERVIDOR
+
+    500 Internal Server Error
+    . Qué significa: Un error no esperado en el código del servidor o fallo crítico no controlado.
+    . Dónde usarlo en el Backend:
+        - Captura de excepciones en el bloque `catch` por variables `null` o errores de código impredecibles.
+        - Desconexión repentina con la base de datos local durante una consulta.
+
+    503 Service Unavailable
+    . Qué significa: El servidor o un servicio dependiente no está disponible temporalmente.
+    . Dónde usarlo en el Backend:
+        - La base de datos local o el servicio de colas de eventos no responde por saturación de red institucional.
