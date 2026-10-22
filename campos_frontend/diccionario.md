@@ -1,4 +1,4 @@
-# DICCIONARIO UNIFICADO DE VARIABLES (Glosario para Front)
+# DICCIONARIO ... Constantes y Variables. 
 
 ## Variables de Usuario y Autenticación
 
