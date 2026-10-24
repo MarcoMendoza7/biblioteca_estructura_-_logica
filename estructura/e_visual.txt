@@ -1,0 +1,142 @@
+ESTRUCTURA DE ARQUITECTURA DE SOFTWARE Y ARCHIVOS - BACKEND BIBLIOTEC
+
+modulo_backend/
+│
+├── src/
+│   ├── config/
+│   │   ├── bd.js
+│   │   └── swagger.js
+│   │
+│   ├── controllers/
+│   │   ├── autenticacion.controller.js
+│   │   ├── acceso.controller.js
+│   │   ├── usuarios.controller.js
+│   │   ├── libros.controller.js
+│   │   ├── prestamos.controller.js
+│   │   ├── devolucion.controller.js
+│   │   ├── adeudos.controller.js
+│   │   ├── reportes.controller.js
+│   │   └── solicitudes.controller.js
+│   │
+│   ├── routes/
+│   │   ├── v1/
+│   │   │   ├── autenticacion.routes.js    
+│   │   │   ├── acceso.routes.js           
+│   │   │   ├── usuarios.routes.js         
+│   │   │   ├── libros.routes.js           
+│   │   │   ├── prestamos.routes.js        
+│   │   │   ├── devoluciones.routes.js     
+│   │   │   ├── adeudos.routes.js          
+│   │   │   ├── reportes.routes.js         
+│   │   │   └── solicitudes.routes.js      
+│   │   │
+│   │   └── v2/    
+│   │       └── 
+│   │
+│   ├── middlewares/
+│   │   ├── autenticacion.middleware.js
+│   │   └── error.middleware.js
+│   │
+│   ├── models/
+│   │   └── (Directorio reservado para la abstracción de consultas o modelos de datos)
+│   │
+│   ├── app.js
+│   └── index.js
+│
+├── prisma/
+│   └── esquema.prisma
+│
+├── .env
+├── .gitignore
+├── package.json
+└── package-lock.json
+
+
+DOCUMENTACIÓN TÉCNICA Y ESPECIFICACIÓN DE COMPONENTES
+
+  1.- CONFIGURACIÓN RAÍZ 
+  
+  • backend/: 
+    Directorio principal que encapsula la solución completa del servidor Backend desarrollado en Node.js + Express + Prisma.
+
+  • prisma/esquema.prisma: 
+    Archivo de modelado de datos de Prisma ORM. Definición de la estructura de tablas relacionales, tipos de datos, llaves primarias, llaves foráneas y relaciones entre entidades (Usuarios, Libros, Préstamos, Bitácora, etc.).
+
+  • .env: 
+    Archivo de configuración para variables de entorno sensibles y globales del sistema (cadenas de conexión a la bd, puerto de escucha del servidor y claves secretas para la firma de tokens JWT).
+
+  • package.json: 
+    Manifiesto principal de Node.js donde se gestiona las dependencias del proyecto (express, @prisma/client, swagger-ui-express, jsonwebtoken), scripts de ejecución y metadatos de la aplicación.
+
+
+  2.- ARCHIVOS DE ENTRADA Y NÚCLEO DE LA APLICACIÓN (src/)
+
+  • index.js: 
+    Punto de entrada principal de la aplicación. Su única responsabilidad es inicializar y poner en marcha el servidor HTTP escuchando en el puerto configurado.
+
+  • app.js: 
+    Instancia principal de la aplicación Express. Integración de middlewares globales (parseo de JSON, CORS), la montura de las rutas base de la API REST y la inicialización de la documentación interactiva en Swagger.
+
+
+  3.- MÓDULO DE CONFIGURACIÓN (src/config/)
+  
+  • config/bd.js: 
+    Módulo encargado de instanciar y exportar el cliente de conexión a la base de datos a través de Prisma Client, permitiendo su reutilización en toda la capa de controladores.
+
+  • config/swagger.js: 
+    Especificación y configuración técnica del motor de Swagger/OpenAPI. Define los metadatos de la API, esquemas de seguridad y la ruta de renderizado para la documentación interactiva.
+
+
+  4.- CAPA DE CONTROLADORES - LÓGICA DE NEGOCIO (src/controllers/)
+  Esta capa procesa las peticiones de entrada (req), ejecuta las validaciones y reglas de negocio necesarias, consulta o persiste información y emite la respuesta HTTP correspondiente (res).
+
+  • autenticacion.controller.js (Módulo 1): 
+    Gestiona la autenticación del personal administrativo y técnico, validando credenciales y emitiendo tokens de acceso JWT con sus respectivos roles.
+
+  • acceso.controller.js (Módulo 2): 
+    Procesa el registro automático de entradas y salidas mediante lectura de tags RFID o captura manual, calculando tiempos de estancia e insertando la actividad en la bitácora.
+
+  • usuarios.controller.js (Módulo 3): 
+    Administra la búsqueda, consulta de expedientes, actualización de datos institucionales y modificación de estatus (activo, suspendido, baja) de alumnos y docentes.
+
+  • libros.controller.js (Módulo 4): 
+    Maneja el ciclo de vida del catálogo bibliográfico: alta de libros con tag RFID único, búsquedas con filtros avanzadas, edición de metadatos y control de stock disponible.
+
+  • prestamos.controller.js (Módulo 5): 
+    Ejecuta la lógica de emisión de préstamos (sala o domicilio), validando disponibilidad de stock, límites de préstamos activos por usuario y cálculo de fechas límite de devolución.
+
+  • devolucion.controller.js (Módulo 6): 
+    Gestiona el proceso de recepción de material devuelto, evaluando el estado físico del libro, calculando tiempos de entrega y procesando renovaciones de fecha.
+
+  • adeudos.controller.js (Módulo 7): 
+    Controla la consulta de usuarios con retrasos, cálculo de días de mora, aplicación de sanciones o multas y el estado del semáforo de alerta.
+
+  • reportes.controller.js (Módulo 8): 
+    Procesa consultas complejas y filtrados de datos por rangos de fecha para la generación de reportes de accesos, préstamos, devoluciones e historial del sistema.
+
+  • solicitudes.controller.js (Módulo 9): 
+    Registra y administra las peticiones de material bibliográfico no encontrado en catálogo, gestionando el cambio de estado de la solicitud (pendiente, aprobada, rechazada).
+
+
+  5. CAPA DE RUTAS - ENDPOINTS REST (src/routes/)
+  Define la estructura de URLs y los métodos HTTP aceptados (GET, POST, PUT, PATCH, DELETE), mapeando cada petición hacia su controlador correspondiente.
+
+  • autenticacion.routes.js:  Define endpoints de autenticación (`/api/v1/autenticacion/login`).
+  • acceso.routes.js:         Define endpoints de bitácora y accesos (`/api/v1/acceso`).
+  • usuarios.routes.js:       Define endpoints para la gestión de usuarios (`/api/v1/usuarios`).
+  • libros.routes.js:         Define endpoints para el catálogo bibliográfico (`/api/v1/libros`).
+  • prestamos.routes.js:      Define endpoints para la gestión de préstamos (`/api/v1/prestamos`).
+  • devoluciones.routes.js:   Define endpoints para devoluciones y renovaciones (`/api/v1/devoluciones`).
+  • adeudos.routes.js:        Define endpoints para la consulta de sanciones y adeudos (`/api/v1/adeudos`).
+  • reportes.routes.js:       Define endpoints para generación de reportes (`/api/v1/reportes`).
+  • solicitudes.routes.js:    Define endpoints para solicitudes de nuevo material (`/api/v1/solicitudes`).
+
+
+  6. CAPA DE MIDDLEWARES (src/middlewares/)
+  Componentes de software intermedio que interceptan y evalúan las peticiones HTTP antes de ser procesadas por la capa de controladores.
+
+  • autenticacion.middleware.js: 
+    Valida la presencia y legitimidad del token JWT en los encabezados de la petición (`Authorization: Bearer`), garantizando el acceso solo a usuarios autorizados.
+
+  • error.middleware.js: 
+    Capturador global de excepciones no controladas y errores de servidor. Estandariza la estructura de respuesta JSON y códigos de estado HTTP.
