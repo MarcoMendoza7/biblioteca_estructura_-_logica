@@ -65,7 +65,7 @@
   - anio_publicacion
   - isbn
   - descripcion
-  - clave_gerencia / asignacion_o_area
+  - clave_generada
   - ubicacion_fisica
   - stock / ejemplares_totales
 ### **Consulta de Catálogo**
@@ -85,7 +85,7 @@
   - id_prestamo (generado aut.)
   - responsable_atencion
   - matricula_o_clave_usuario
-  - carrera_o_especialidad
+  - genero_o_especialidad
   - ejemplar_id / tag_rfid_libro
   - fecha_prestamo
   - fecha_limite_devolucion
@@ -103,10 +103,12 @@
   - id_devolucion
   - id_prestamo
   - matricula_o_clave_usuario
+  - carrera_sector
   - nombre_responsable
   - fecha_devolucion
-  - estado_fisico_al_devolver
-  - observacion_danio (en caso de daño)
+  - estado_fisico_al_devolver (daño)
+  - renovaciones_realizadas
+
 - **Módulo/Pantalla:** Renovación
 - **Datos recibidos (Request Payload):**
   - id_prestamo
@@ -123,6 +125,7 @@
 - **Datos manejados (Response / Request):**
   - responsable_del_adeudo (ID Usuario / Matrícula)
   - carrera_o_sector
+  - matricula
   - prestamo_relacionado_id
   - estado_del_material
   - fecha_vencimiento
