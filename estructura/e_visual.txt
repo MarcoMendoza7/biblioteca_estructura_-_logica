@@ -88,7 +88,7 @@ DOCUMENTACIÓN TÉCNICA Y ESPECIFICACIÓN DE COMPONENTES
 
 
   4.- CAPA DE CONTROLADORES - LÓGICA DE NEGOCIO (src/controllers/)
-  Esta capa procesa las peticiones de entrada (req), ejecuta las validaciones y reglas de negocio necesarias, consulta o persiste información y emite la respuesta HTTP correspondiente (res).
+  Esta capa procesa las peticiones de entrada (request), ejecuta las validaciones y reglas de negocio necesarias, consulta o persiste información y emite la respuesta HTTP correspondiente (response).
 
   • autenticacion.controller.js (Módulo 1): 
     Gestiona la autenticación del personal administrativo y técnico, validando credenciales y emitiendo tokens de acceso JWT con sus respectivos roles.
@@ -103,7 +103,7 @@ DOCUMENTACIÓN TÉCNICA Y ESPECIFICACIÓN DE COMPONENTES
     Maneja el ciclo de vida del catálogo bibliográfico: alta de libros con tag RFID único, búsquedas con filtros avanzadas, edición de metadatos y control de stock disponible.
 
   • prestamos.controller.js (Módulo 5): 
-    Ejecuta la lógica de emisión de préstamos (sala o domicilio), validando disponibilidad de stock, límites de préstamos activos por usuario y cálculo de fechas límite de devolución.
+    Ejecuta la lógica de emisión de préstamos (biblioteca / hogar), validando disponibilidad de stock, límites de préstamos activos por usuario y cálculo de fechas límite de devolución.
 
   • devolucion.controller.js (Módulo 6): 
     Gestiona el proceso de recepción de material devuelto, evaluando el estado físico del libro, calculando tiempos de entrega y procesando renovaciones de fecha.

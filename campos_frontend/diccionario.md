@@ -127,9 +127,9 @@
   - **Descripción:** Descripción o resumen del material
   - **Se usa en:** Módulo 4
 
-- **areaAsignada**
+- **claveGenerada**
   - **Tipo:** STRING
-  - **Alias anteriores:** clave_gerencia / asignacion_o_area
+  - **Alias anteriores:** clave_generada
   - **Descripción:** Clave de gerencia o área asignada
   - **Se usa en:** Módulo 4
 

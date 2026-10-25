@@ -85,7 +85,7 @@
   - id_prestamo (generado aut.)
   - responsable_atencion
   - matricula_o_clave_usuario
-  - genero_o_especialidad
+  - carrera_o_especialidad
   - ejemplar_id / tag_rfid_libro
   - fecha_prestamo
   - fecha_limite_devolucion
@@ -103,7 +103,7 @@
   - id_devolucion
   - id_prestamo
   - matricula_o_clave_usuario
-  - carrera_sector
+  - carrera_o_sector
   - nombre_responsable
   - fecha_devolucion
   - estado_fisico_al_devolver (daño)
